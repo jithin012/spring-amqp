@@ -16,17 +16,10 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 @Slf4j
 public class LearnApplication {
-//	@Autowired
-//	ConnectionFactory connectionFactory;
 
 	public static void main(String[] args) {
 		SpringApplication.run(LearnApplication.class, args);
-
-//		DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-//			String message = new String(delivery.getBody());
-//			log.info("message delivered {}", message);
-//		};
-
+		log.info("ref: https://www.javainuse.com/messaging/rabbitmq/exchange");
 	}
 
 //	@Bean

@@ -11,10 +11,16 @@ public class Consumer {
 
     @RabbitListener(queues = "adminQueue")
     public void adminQueuePoller(Message message){
-        String messagePayload = new String(message.getBody());
-        log.info("message poller starts at adminQueue with {}", messagePayload);
+        try {
+            String messagePayload = new String(message.getBody());
+            log.info("message poller starts at adminQueue with {}", messagePayload);
 
-        // TODO: process messagePayload
+            // TODO: process messagePayload
+
+        } catch(Exception ex) {
+            log.error(ex.getMessage());
+        }
+
     }
 
     @RabbitListener(queues = "financeQueue")
