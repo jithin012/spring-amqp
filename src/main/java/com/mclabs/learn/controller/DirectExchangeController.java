@@ -16,13 +16,22 @@ public class DirectExchangeController {
     @Autowired
     RabbitTemplate rabbitTemplate;
 
-    @GetMapping("sendToExchange")
+    @GetMapping("sendToDirectExchange")
     public String producer(
             @RequestParam("exchangeName") String exchange,
             @RequestParam("routingKey") String routingKey,
             @RequestParam("messageData") String messageData
     ) {
         rabbitTemplate.convertAndSend(exchange, routingKey, messageData);
+        return "Message sent to RabbitMQ Successfully!!!";
+    }
+
+    @GetMapping("sendToFanoutExchange")
+    public String Fanoutproducer(
+            @RequestParam("exchangeName") String exchange,
+            @RequestParam("messageData") String messageData
+    ) {
+        rabbitTemplate.convertAndSend(exchange, "", messageData);
         return "Message sent to RabbitMQ Successfully!!!";
     }
 }

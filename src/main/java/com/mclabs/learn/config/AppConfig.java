@@ -1,9 +1,6 @@
 package com.mclabs.learn.config;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -48,22 +45,22 @@ public class AppConfig {
     }
 
     @Bean
-    public DirectExchange exchange() {
-        return new DirectExchange("direct-exchange");
+    public FanoutExchange exchange() {
+        return new FanoutExchange("fanout-exchange");
     }
 
     @Bean
-    Binding marketingBinding(Queue marketingQueue, DirectExchange exchange) {
-        return BindingBuilder.bind(marketingQueue).to(exchange).with("marketing");
+    Binding marketingBinding(Queue marketingQueue, FanoutExchange exchange) {
+        return BindingBuilder.bind(marketingQueue).to(exchange);
     }
 
     @Bean
-    Binding financeBinding(Queue financeQueue, DirectExchange exchange) {
-        return BindingBuilder.bind(financeQueue).to(exchange).with("finance");
+    Binding financeBinding(Queue financeQueue, FanoutExchange exchange) {
+        return BindingBuilder.bind(financeQueue).to(exchange);
     }
 
     @Bean
-    Binding adminBinding(Queue adminQueue, DirectExchange exchange) {
-        return BindingBuilder.bind(adminQueue).to(exchange).with("admin");
+    Binding adminBinding(Queue adminQueue, FanoutExchange exchange) {
+        return BindingBuilder.bind(adminQueue).to(exchange);
     }
 }
