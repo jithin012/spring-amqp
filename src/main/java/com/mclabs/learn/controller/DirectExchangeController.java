@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-//eg: http://localhost:8090/direct-exchange/sendToExchange?exchangeName=direct-exchange&routingKey=marketing&messageData=HelloWorldJavaInUse
+//eg: http://localhost:8090/exchange/sendToExchange?exchangeName=direct-exchange&routingKey=marketing&messageData=HelloWorldJavaInUse
+//    http://localhost:8090/exchange/sendToFanoutExchange?exchangeName=fanout-exchange&messageData=HelloWorldJavaInUse
 @RestController
-@RequestMapping("/direct-exchange/")
+@RequestMapping("/exchange/")
 @Slf4j
 public class DirectExchangeController {
     @Autowired
