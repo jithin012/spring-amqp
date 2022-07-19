@@ -45,22 +45,33 @@ public class AppConfig {
     }
 
     @Bean
-    public FanoutExchange exchange() {
-        return new FanoutExchange("fanout-exchange");
+    public Queue allQueue() {
+        return new Queue("allQueue", false);
+    }
+
+
+    @Bean
+    public TopicExchange exchange() {
+        return new TopicExchange("topic-exchange");
     }
 
     @Bean
-    Binding marketingBinding(Queue marketingQueue, FanoutExchange exchange) {
-        return BindingBuilder.bind(marketingQueue).to(exchange);
+    Binding marketingBinding(Queue marketingQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(marketingQueue).to(exchange).with("queue.marketing");
     }
 
     @Bean
-    Binding financeBinding(Queue financeQueue, FanoutExchange exchange) {
-        return BindingBuilder.bind(financeQueue).to(exchange);
+    Binding financeBinding(Queue financeQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(financeQueue).to(exchange).with("queue.finance");
     }
 
     @Bean
-    Binding adminBinding(Queue adminQueue, FanoutExchange exchange) {
-        return BindingBuilder.bind(adminQueue).to(exchange);
+    Binding adminBinding(Queue adminQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(adminQueue).to(exchange).with("queue.admin");
+    }
+
+    @Bean
+    Binding allBinding(Queue allQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(allQueue).to(exchange).with("queue.*");
     }
 }

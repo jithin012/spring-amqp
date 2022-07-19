@@ -38,4 +38,12 @@ public class Consumer {
 
         // TODO: process messagePayload
     }
+
+    @RabbitListener(queues = "allQueue")
+    public void allQueuePoller(Message message){
+        String messagePayload = new String(message.getBody());
+        log.info("message poller starts at allQueue with {}", messagePayload);
+
+        // TODO: process messagePayload
+    }
 }

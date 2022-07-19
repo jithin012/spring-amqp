@@ -28,11 +28,21 @@ public class DirectExchangeController {
     }
 
     @GetMapping("sendToFanoutExchange")
-    public String Fanoutproducer(
+    public String FanoutProducer(
             @RequestParam("exchangeName") String exchange,
             @RequestParam("messageData") String messageData
     ) {
         rabbitTemplate.convertAndSend(exchange, "", messageData);
+        return "Message sent to RabbitMQ Successfully!!!";
+    }
+
+    @GetMapping("sendToTopicExchange")
+    public String topicProducer(
+            @RequestParam("exchangeName") String exchange,
+            @RequestParam("routingKey") String routingKey,
+            @RequestParam("messageData") String messageData
+    ) {
+        rabbitTemplate.convertAndSend(exchange, routingKey, messageData);
         return "Message sent to RabbitMQ Successfully!!!";
     }
 }
