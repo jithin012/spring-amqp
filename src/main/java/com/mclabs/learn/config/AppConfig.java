@@ -1,5 +1,8 @@
 package com.mclabs.learn.config;
 
+import com.mclabs.learn.eventConsumer.config.EventConsumerConfig;
+import com.mclabs.learn.eventConsumer.config.EventConsumerConfigBuilder;
+import com.mclabs.learn.message.TransformerEventConsumer;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -73,5 +76,18 @@ public class AppConfig {
     @Bean
     Binding allBinding(Queue allQueue, TopicExchange exchange) {
         return BindingBuilder.bind(allQueue).to(exchange).with("queue.*");
+    }
+
+    // usage of event conSumer
+    @Bean
+    public EventConsumerConfig schesuleEventConsumerConfig(@Autowired TransformerEventConsumer transformerEventConsumer) {
+        return EventConsumerConfigBuilder.v1()
+                //.withConcurrentConsumer
+                //.withMaxCon
+                //.withPrefetchCount
+                // withAutoMode, withExternalRetry
+                // .. subscriberListener, withHostName, withVhost, withUsername, withpassword,
+                // withServiceConsumer(transformerEventConsumer).done
+                .build();
     }
 }
